@@ -1,0 +1,7 @@
+CUSTOMER_NONE = "User does not exist "
+FILE_SIZE_OVER = "File size is over the limit"
+AMOUNT_NONE = "Error: Column 'amount' contains empty values"
+DATE_FORMAT_INVALID = "Error: Invalid plan month format"
+PLAN_ALREADY_EXISTS = "Error: Plan already exists in the database"
+PLAN_CREATE_SUCCESSFULLY = "Plan successfully uploaded to the database"
+ERROR_UPLOADING_PLAN = "Unknown error occurred while uploading"

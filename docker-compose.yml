@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: 'mysql1'
+      MYSQL_USER: 'remover'
+      MYSQL_PASSWORD: '789456'
+      MYSQL_ROOT_PASSWORD: '456789'
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql:/var/lib/mysql
+
