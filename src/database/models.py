@@ -44,7 +44,6 @@ class Credit(Base):
     actual_return_date: Mapped[date] = mapped_column(nullable=True, default=None)
     body: Mapped[int] = mapped_column(Integer)
     percent: Mapped[int] = mapped_column(Integer)
-    credit: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
 
 
 class Payment(Base):

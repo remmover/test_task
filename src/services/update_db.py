@@ -5,7 +5,7 @@ import csv
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
-
+from src.conf.config import config
 from src.database.models import User, Dictionary, Plan, Credit, Payment
 
 excel_folder = "data"
@@ -54,8 +54,7 @@ def import_data_from_excel(file_path, session, table_name):
                         body=int(row["body"]),
                         percent=float(row["percent"]),
                     )
-                    if data_credits.actual_return_date:
-                        data_credits.credit = True
+
                     session.add(data_credits)
 
                 case "payments":
@@ -87,7 +86,9 @@ def main():
     - Run this script to import data from CSV files into the MySQL database.
 
     """
-    engine = create_engine("mysql+mysqlconnector://root:456789@localhost:3306/mysql1")#
+    engine = create_engine(
+        f"mysql+mysqlconnector://{config.mysql_user}:{config.mysql_password}@{config.mysql_host}:{config.mysql_port}/{config.mysql_db}"
+    )
     Session = sessionmaker(bind=engine)
 
     excel_files = get_excel_files(excel_folder)

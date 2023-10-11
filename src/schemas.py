@@ -1,26 +1,20 @@
-from pydantic import BaseModel, ConfigDict
-from datetime import date
+from pydantic import BaseModel
+from typing import List
 
 
-class BaseUserResponseSchema(BaseModel):
-    issuance_date: int
-    credit_closed: bool
-    return_date: date
-    interest_amount: int
+class CreditInfo(BaseModel):
+    issuance_date: str = ""
+    credit_closed: bool = False
+    return_date: str = ""
+    days_overdue: int = 0
+    credit_amount: float = 0.0
+    interest_amount: float = 0.0
+    total_body_payments: float = 0.0
+    total_percent_payments: float = 0.0
 
 
-class NotDebtorResponseSchema(BaseUserResponseSchema):
-    credit_amount: int
-    total_payments: int
-    model_config = ConfigDict(from_attributes=True)
-
-
-class DebtorResponseSchema(BaseUserResponseSchema):
-    days_overdue: int
-    credit_amount: int
-    total_body_payments: float
-    total_percent_payments: float
-    model_config = ConfigDict(from_attributes=True)
+class CustomerLoansResponse(BaseModel):
+    user_credits: List[CreditInfo]
 
 
 class FileResponseSchema(BaseModel):

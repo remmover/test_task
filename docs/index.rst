@@ -56,7 +56,7 @@ REST API routes Plan
 
 REST API service Update_db
 =========================
-.. automodule:: src.services.update_db
+.. automodule:: src.services.update_db.main
   :members:
   :undoc-members:
   :show-inheritance:

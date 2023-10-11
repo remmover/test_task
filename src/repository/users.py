@@ -7,11 +7,21 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.database.models import User, Credit, Payment
 
 
-async def get_customer_by_id(id: int, db: AsyncSession) -> List[dict[str]]:
+async def get_customer_by_id(id: int, db: AsyncSession) -> List[dict]:
+    """
+    Retrieves information about a customer's credits by their user ID.
+
+    :param id: The ID of the customer for whom to retrieve credit information.
+    :type id: int
+    :param db: The database session.
+    :type db: AsyncSession
+    :return: A list of dictionaries containing credit information.
+    :rtype: List[dict[str]]
+    """
     sq = (
         select(
             Credit.issuance_date,
-            Credit.credit,
+            Credit.actual_return_date,
             Credit.return_date,
             Credit.body,
             Credit.percent,
@@ -30,7 +40,7 @@ async def get_customer_by_id(id: int, db: AsyncSession) -> List[dict[str]]:
         )
         .group_by(
             Credit.issuance_date,
-            Credit.credit,
+            Credit.actual_return_date,
             Credit.return_date,
             Credit.body,
             Credit.percent,
@@ -44,14 +54,14 @@ async def get_customer_by_id(id: int, db: AsyncSession) -> List[dict[str]]:
 
     for credit in user_credits:
         credit_info = {
-            "issuance_date": credit["issuance_date"],
-            "credit_closed": credit["credit"],
+            "issuance_date": credit["issuance_date"].strftime("%Y-%m-%d"),
+            "credit_closed": True if credit["actual_return_date"] else False,
         }
 
-        if credit["credit"]:
+        if credit_info["credit_closed"]:
             credit_info.update(
                 {
-                    "return_date": credit["return_date"],
+                    "return_date": credit["return_date"].strftime("%Y-%m-%d"),
                     "credit_amount": credit["body"],
                     "interest_amount": credit["percent"],
                     "total_payments": credit["total_body_payments"]
@@ -61,7 +71,7 @@ async def get_customer_by_id(id: int, db: AsyncSession) -> List[dict[str]]:
         else:
             credit_info.update(
                 {
-                    "return_date": credit["return_date"],
+                    "return_date": credit["return_date"].strftime("%Y-%m-%d"),
                     "days_overdue": credit["days_overdue"],
                     "credit_amount": credit["body"],
                     "interest_amount": credit["percent"],
