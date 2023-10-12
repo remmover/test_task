@@ -1,13 +1,12 @@
-from typing import List
+from typing import List, Dict, Any
 
 from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 from src.database.models import User, Credit, Payment
 
 
-async def get_customer_by_id(id: int, db: AsyncSession) -> List[dict]:
+async def get_customer_by_id(id: int, db: AsyncSession) -> List[Dict[str, Any]]:
     """
     Retrieves information about a customer's credits by their user ID.
 

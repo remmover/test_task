@@ -19,3 +19,16 @@ class CustomerLoansResponse(BaseModel):
 
 class FileResponseSchema(BaseModel):
     text: str
+
+
+class PlanPerformance(BaseModel):
+    month: str
+    category: str
+    sum_plan: float
+    total_sum: float
+    percent_completion: float
+
+
+class PlanPerformanceResponse(BaseModel):
+    result_payments: PlanPerformance
+    result_credits: PlanPerformance

@@ -1,12 +1,12 @@
 import os
 import csv
 
-
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
 from src.conf.config import config
 from src.database.models import User, Dictionary, Plan, Credit, Payment
+
 
 excel_folder = "data"
 file_extension = "csv"
@@ -89,6 +89,7 @@ def main():
     engine = create_engine(
         f"mysql+mysqlconnector://{config.mysql_user}:{config.mysql_password}@{config.mysql_host}:{config.mysql_port}/{config.mysql_db}"
     )
+
     Session = sessionmaker(bind=engine)
 
     excel_files = get_excel_files(excel_folder)

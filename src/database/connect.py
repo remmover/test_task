@@ -39,6 +39,7 @@ class DatabaseSessionManager:
 
 SQLALCHEMY_DATABASE_URL = f"mysql+aiomysql://{config.mysql_user}:{config.mysql_password}@{config.mysql_host}:{config.mysql_port}/{config.mysql_db}"
 
+
 sessionmanager = DatabaseSessionManager(SQLALCHEMY_DATABASE_URL)
 
 

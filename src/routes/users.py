@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
 from src.database.connect import get_db
 from src.repository.users import get_customer_by_id
 from src.schemas import CustomerLoansResponse
+
 
 router = APIRouter(tags=["users"])
 
